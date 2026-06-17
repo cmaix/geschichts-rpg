@@ -70,7 +70,7 @@ Legende: `[ ]` offen · `[~]` in Arbeit · `[x]` erledigt
 - [x] Welt 3: Berlin 1933 (Krolloper, Otto Wels) (v2.0.0)
 - [x] Dalton-Mappen-Zertifikat als `.txt`-Download (Blob) (v2.0.0)
 - [x] Welt 5: Leipzig 1989 (Montagsdemos) — Rollen Sabine (Bürgerrechtlerin) & Oberstleutnant Wagner (Stasi) (v2.1.0)
-- [ ] Zweite spielbare Rolle für Welt 1933 (aktuell nur Otto/SPD)
+- [x] Zweite spielbare Rolle für Welt 1933: Heinrich (Zentrumspartei) — historisches „Ja" vs. kontrafaktisches „Nein" (v2.2.0)
 
 > **Inhaltlicher Hinweis (v2.0.0):** Die mitgelieferten Daten enthielten für die
 > Radikalen-Rolle *Gustav* (Welt 1849) keine Dialoge. Diese Branche (NPC „Sprecher der

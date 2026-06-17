@@ -256,7 +256,10 @@ const MODULES = [
     roles: [
       { id: "otto_sozialist", name: "Otto (Abgeordneter der SPD)",
         desc: "Ein langjähriger Gewerkschafter und Parlamentarier, fest verankert im Erbe der Ebert-Demokratie. Ziel: Verteidigung der Republik um jeden Preis.",
-        start: { influence: 30, suspicion: 50 } }
+        start: { influence: 30, suspicion: 50 } },
+      { id: "zentrum_abgeordneter", name: "Heinrich (Abgeordneter der Zentrumspartei)",
+        desc: "Katholischer Jurist im Bann von Prälat Ludwig Kaas. Hofft, durch ein 'Ja' Kirche, konfessionelle Schulen und die physische Existenz der Mitglieder vor dem SA-Terror zu schützen.",
+        start: { influence: 40, suspicion: 20 } }
     ],
     locations: {
       krolloper_flur: {
@@ -275,6 +278,17 @@ const MODULES = [
               { text: "Zitiere den Entwurf der Wels-Rede: 'Niemals! Freiheit und Leben kann man uns nehmen, die Ehre nicht! Wenn wir dieses Ermächtigungsgesetz annehmen, besiegeln wir die totale Selbstentmannung des Parlaments. Wir müssen mit Nein stimmen!'",
                 requires_item: "quelle_wels_rede", effects: { influence: 50, suspicion: 25 }, next_location: "end_evaluation",
                 feedback: "Kaas blickt dich traurig an und schüttelt den Kopf. Das Zentrum knickt ein und stimmt zu. Die SPD stimmt als einzige Fraktion geschlossen mit NEIN. Die Diktatur wird legalisiert, deine Verhaftungswelle rollt an." }
+            ] },
+          { name: "Prälat Ludwig Kaas (dein Fraktionsvorsitzender)",
+            identity_for_role: "zentrum_abgeordneter",
+            dialog_start: "»Heinrich, hören Sie auf mich. Hitler hat uns schriftliche Garantien für die Kirche, die konfessionellen Schulen und das Reichskonkordat in Aussicht gestellt. Stimmen wir zu, schützen wir unsere Gläubigen vor dem Terror. Ein 'Nein' wäre Selbstmord der Fraktion. Wie stimmen Sie?«",
+            choices: [
+              { text: "Folge Kaas und der Staatsräson: 'Sie haben recht, Prälat. Mit Hitlers Zusicherungen für Kirche und Schule stimmen wir zu – nur so bewahren wir unsere Mitglieder vor dem Schlimmsten.'",
+                requires_item: null, effects: { influence: -45, suspicion: -15 }, next_location: "end_evaluation",
+                feedback: "Mit den Stimmen des Zentrums erhält das Ermächtigungsgesetz die Zweidrittelmehrheit. Die tragische Illusion zerplatzt binnen Wochen: Hitler bricht jede Zusage, das Zentrum löst sich im Juli 1933 selbst auf, das Reichskonkordat bleibt ein Feigenblatt – die 'Gleichschaltung' ist vollendet." },
+              { text: "Lass dich von Wels' Entwurf überzeugen und brich mit Kaas: 'Nein, Prälat! Keine Garantie kann den Bruch der Verfassung rechtfertigen. Ich stimme mit der SPD – mit Nein!'",
+                requires_item: "quelle_wels_rede", effects: { influence: 40, suspicion: 30 }, next_location: "end_evaluation",
+                feedback: "Schließt sich das Zentrum dem Nein an, verfehlt Hitler die legale Zweidrittelmehrheit. Die Maske der Legalität fällt – das Regime muss die Macht offen mit Gewalt erzwingen. Du selbst gerätst sofort ins Visier der SA, doch das Parlament hat seine Würde verteidigt." }
             ] }
         ],
         exits: []

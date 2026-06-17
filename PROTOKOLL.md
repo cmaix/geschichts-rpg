@@ -4,7 +4,7 @@ Sauberes Projekt- und Spielprotokoll (Game Design Document + Änderungslog) für
 Serious-RPG zum Geschichts-Abitur.
 
 - **Stand:** 2026-06-17
-- **Status:** ✅ **v2.1.0** — 4 Welten (1789 / 1848-49 / 1933 / 1989), `localStorage`-Persistenz & Zertifikat-Download, im Browser verifiziert · siehe [TODO.md](TODO.md)
+- **Status:** ✅ **v2.2.0** — 4 Welten (1789 / 1848-49 / 1933 / 1989), 7 Rollen, `localStorage`-Persistenz & Zertifikat-Download, im Browser verifiziert · auf GitHub: [cmaix/geschichts-rpg](https://github.com/cmaix/geschichts-rpg) · siehe [TODO.md](TODO.md)
 - **Verwandte Dokumente:** [ARCHITEKTUR.md](ARCHITEKTUR.md), [TODO.md](TODO.md)
 
 ---
@@ -155,6 +155,7 @@ Beide Werte sind auf `0–100` begrenzt. Kritische Schwellen werden signalrot da
 | 2026-06-17  | 1.0.0   | `index.html` implementiert: Engine, 3-Spalten-UI, Gating, beide Rollen, Game-Over, Auswertung + Dalton-Export. QA im Browser bestanden (0 Konsolenfehler). |
 | 2026-06-17  | 2.0.0   | Welt-Auswahlmenü; 2 neue Welten (1848/49 mit Eduard & Gustav, 1933 mit Otto); `localStorage`-Autosave + „Fortsetzen"; Zertifikat-Download (.txt/Blob); Entscheidungs-Protokoll; modulneutraler Game-Over-Text. Gustav-Branche ergänzt & austariert. QA bestanden (0 Konsolenfehler). |
 | 2026-06-17  | 2.1.0   | Welt 5 (Leipzig 1989) mit 2 Rollen (Sabine / Oberstleutnant Wagner); Quellen-Artefakt „Aufruf zur Gewaltlosigkeit" schaltet sowohl Sabines gewaltlosen Durchbruch als auch Wagners Schießbefehl-Verweigerung frei. Chronik nun lückenlos (1789–1989). QA bestanden (0 Konsolenfehler). |
+| 2026-06-17  | 2.2.0   | Welt 1933 erweitert: zweite Rolle Heinrich (Zentrumspartei) unter Prälat Kaas. Historisches „Ja" (tragische Illusion → Selbstauflösung) ohne Quelle; kontrafaktisches „Nein" via Wels-Reden-Artefakt freigeschaltet. Repo auf GitHub (cmaix/geschichts-rpg) veröffentlicht. QA bestanden (0 Konsolenfehler). |
 
 ---
 
