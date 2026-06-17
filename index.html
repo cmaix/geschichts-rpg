@@ -22,6 +22,23 @@
   ::-webkit-scrollbar { width: 10px; }
   ::-webkit-scrollbar-track { background: #0f172a; }
   ::-webkit-scrollbar-thumb { background: #334155; border-radius: 6px; }
+
+  /* Druckansicht des Dalton-Mappen-Zertifikats */
+  .print-only { display: none; }
+  @media print {
+    body { background: #fff !important; color: #000 !important; }
+    #menu, #game { display: none !important; }
+    .no-print { display: none !important; }
+    /* im Auswertungs-Overlay nur das Zertifikat drucken */
+    #overlay > div > *:not(#print-cert) { display: none !important; }
+    .print-only {
+      display: block !important;
+      color: #000 !important; background: #fff !important;
+      font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 11px; line-height: 1.5; white-space: pre-wrap; word-break: break-word;
+      margin: 0; padding: 0;
+    }
+  }
 </style>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen antialiased">
@@ -213,6 +230,9 @@ const MODULES = [
               { text: "Berufe dich auf Struves Flugblatt: 'Nur das bewaffnete Volk sichert die Freiheit! Wir rufen zur Reichsverfassungskampagne auf – die Republik wird auf den Barrikaden geboren, nicht am Verhandlungstisch!'",
                 requires_item: "quelle_struve", effects: { influence: 30, suspicion: 35 }, next_location: "end_evaluation",
                 feedback: "Die Linke verlässt geschlossen das Parlament. In Baden, der Pfalz und Sachsen (Dresdner Maiaufstand) erheben sich die Massen. Doch preußische Truppen schlagen die Aufstände blutig nieder; mit dem Fall der Festung Rastatt im Juli 1849 endet die Revolution – du fliehst als 'Forty-Eighter' ins Exil." },
+              { text: "Geh aufs Ganze: 'Keine Reden mehr! Stürmt JETZT das Zeughaus, bewaffnet den Mob und putscht sofort los – wer zögert, verrät die Republik!'",
+                requires_item: "quelle_struve", effects: { influence: 20, suspicion: 45 }, next_location: "end_evaluation",
+                feedback: "Dein überstürzter, isolierter Putsch bricht zusammen, ehe er begonnen hat. Ohne Organisation und Rückhalt wirst du noch in derselben Nacht von preußischem Militär gefasst – ein Standgericht in Rastatt verurteilt dich zum Tode. Der blinde Aktionismus hat die Sache der Demokratie nicht gestärkt, sondern Opfer produziert." },
               { text: "Zögere und setze doch auf das Parlament: 'Vielleicht sollten wir den Liberalen noch eine letzte Chance geben, bevor wir Blut vergießen.'",
                 requires_item: null, effects: { influence: -15, suspicion: -5 }, next_location: "paulskirche_plenum",
                 feedback: "Deine Mitstreiter schütteln verächtlich den Kopf: 'Seit wann zaudert ein Demokrat?' Du verlierst an Rückhalt in der radikalen Bewegung." }
@@ -353,8 +373,8 @@ const MODULES = [
             dialog_start: "»Sabine, wir sind über 70.000! Aber die Bewaffneten stehen bereit, es heißt, sie schießen scharf. Gehen wir an die Spitze des Zuges – oder weichen wir in die Seitengassen aus, bevor es ein Blutbad gibt?«",
             choices: [
               { text: "Geh an die Spitze und stimme den Sprechchor an: 'Keine Gewalt! Wir sind das Volk!' – diszipliniert, gewaltlos, unübersehbar.",
-                requires_item: "quelle_aufruf_gewaltlosigkeit", effects: { influence: 30, suspicion: -10 }, next_location: "end_evaluation",
-                feedback: "Die eiserne Gewaltlosigkeit nimmt dem Regime jeden Vorwand zum Zuschlagen. Die Einsatzkräfte zögern – und lassen die 70.000 passieren. Der gewaltlose Durchbruch von Leipzig bricht das Rückgrat der SED-Diktatur; einen Monat später fällt die Mauer." },
+                requires_item: "quelle_aufruf_gewaltlosigkeit", effects: { influence: 30, suspicion: -10 }, next_location: "bornholmer_9nov",
+                feedback: "Die eiserne Gewaltlosigkeit nimmt dem Regime jeden Vorwand zum Zuschlagen. Die Einsatzkräfte zögern – und lassen die 70.000 passieren. Der gewaltlose Durchbruch von Leipzig bricht das Rückgrat der SED-Diktatur. Die Ereignisse überschlagen sich – Wochen später, am 9. November, stehst du selbst an der Berliner Grenze." },
               { text: "Weiche mit deiner Gruppe in die Seitengassen aus, um dem drohenden Beschuss zu entgehen.",
                 requires_item: null, effects: { influence: -20, suspicion: 20 }, next_location: "end_evaluation",
                 feedback: "Ohne geschlossene, gewaltlose Front zersplittert der Zug. Stasi und Polizei greifen einzelne Gruppen heraus und verhaften sie. Die Bewegung verliert ihren Schwung, das Regime gewinnt wertvolle Zeit." }
@@ -367,11 +387,45 @@ const MODULES = [
                 requires_item: null, effects: { influence: 10, suspicion: 60 }, next_location: "end_evaluation",
                 feedback: "Salven krachen in die Menge – ein Blutbad wie in Peking. Über Nacht ist die DDR international vollständig isoliert, selbst Moskau geht auf Distanz. Die letzte Legitimität des Regimes zerbricht, der Staatskollaps beschleunigt sich im Chaos." },
               { text: "Verweise auf das sichergestellte Flugblatt und verweigere den Schießbefehl: 'Das sind keine bewaffneten Konterrevolutionäre – nur Kerzen. Und Moskau schweigt. Ich gebe diesen Befehl nicht.'",
-                requires_item: "quelle_aufruf_gewaltlosigkeit", effects: { influence: -15, suspicion: -30 }, next_location: "end_evaluation",
-                feedback: "Ohne Rückendeckung aus Gorbatschows Moskau und im Wissen um die Gewaltlosigkeit der Menge hältst du die Einheiten zurück. Die 70.000 ziehen friedlich weiter – der Damm bricht. Der 9. Oktober wird zum Wendepunkt; einen Monat später fällt die Mauer." }
+                requires_item: "quelle_aufruf_gewaltlosigkeit", effects: { influence: -15, suspicion: -30 }, next_location: "bornholmer_9nov",
+                feedback: "Ohne Rückendeckung aus Gorbatschows Moskau und im Wissen um die Gewaltlosigkeit der Menge hältst du die Einheiten zurück. Die 70.000 ziehen friedlich weiter – der Damm bricht. Wochen später, am 9. November, entscheidet sich an der Berliner Grenze alles." }
             ] }
         ],
-        exits: ["nikolaikirche"]
+        exits: ["nikolaikirche", "bornholmer_9nov"]
+      },
+      bornholmer_9nov: {
+        name: "📍 Grenzübergang Bornholmer Straße, Berlin – 9. November 1989",
+        description: "Wochen nach Leipzig: In einer wirren Pressekonferenz hat SED-Funktionär Günter Schabowski soeben eine neue Reiseregelung verkündet – 'sofort, unverzüglich'. Tausende strömen zu den Grenzübergängen und drängen sich vor den Schlagbäumen. Die Grenzer haben keine klaren Befehle. Auf dem Tisch der Abfertigung liegt der maschinengeschriebene Zettel, von dem Schabowski ablas.",
+        artifacts: [
+          { id: "quelle_schabowski_zettel", name: "📜 Schabowskis Zettel zur Reiseregelung (9. Nov. 1989)",
+            text: "»Privatreisen nach dem Ausland können ohne Vorliegen von Voraussetzungen (Reiseanlässe und Verwandtschaftsverhältnisse) beantragt werden. […] Die zuständigen Abteilungen sind angewiesen, Visa unverzüglich zu erteilen.« – Auf die Frage, ab wann das gelte: »Das tritt nach meiner Kenntnis … ist das sofort, unverzüglich.«",
+            hint: "Die unklar formulierte, vorzeitig verkündete Reiseregelung – der bürokratische Funke, der die Mauer zum Einsturz brachte." }
+        ],
+        npcs: [
+          { name: "Drängende Menge am Schlagbaum",
+            identity_for_role: "sabine_buergerrechtlerin",
+            dialog_start: "»Sabine, im Radio heißt es, die Grenze sei offen – 'sofort'! Aber die Grenzer zögern, niemand weiß, ob geschossen wird. Sollen wir Druck machen und auf die Öffnung bestehen?«",
+            choices: [
+              { text: "Halte Schabowskis Reiseregelung hoch und fordere gewaltlos, aber bestimmt die Öffnung: 'Die Regelung gilt – sofort! Lasst uns durch, friedlich!'",
+                requires_item: "quelle_schabowski_zettel", effects: { influence: 30, suspicion: -10 }, next_location: "end_evaluation",
+                feedback: "Der gewaltlose, aber unaufhaltsame Druck der Menge – und die offizielle Regelung in der Hand: Gegen 23:30 Uhr öffnet Grenzoffizier Harald Jäger eigenmächtig den Schlagbaum an der Bornholmer Straße. Die Mauer ist gefallen; wildfremde Menschen liegen sich weinend in den Armen." },
+              { text: "Bleib vorsichtig zurück und warte ab, ob die Grenzer wirklich nicht schießen.",
+                requires_item: null, effects: { influence: -10, suspicion: 5 }, next_location: "end_evaluation",
+                feedback: "Du hältst dich zurück. Andere drängen nach vorn – und tatsächlich öffnet sich der Schlagbaum auch ohne dich. Die Mauer fällt, doch der historische erste Schritt gehört anderen." }
+            ] },
+          { name: "Vorgesetzter im MfS (am Telefon)",
+            identity_for_role: "wagner_stasi",
+            dialog_start: "»Wagner, die Lage ist außer Kontrolle! Tausende vor den Übergängen, Schabowski hat von 'sofort' geredet, aber wir haben KEINEN Befehl. Was tun – Übergang halten oder öffnen, bevor es Tote gibt?«",
+            choices: [
+              { text: "Verweise auf die öffentlich verkündete Regelung und gib den Schlagbaum frei: 'Die Regelung ist öffentlich – ich öffne. Lieber die Grenze auf als Tote am Zaun.'",
+                requires_item: "quelle_schabowski_zettel", effects: { influence: -10, suspicion: -20 }, next_location: "end_evaluation",
+                feedback: "Wie Harald Jäger in dieser Nacht triffst du eigenmächtig die Entscheidung und lässt den Schlagbaum hochgehen. Ohne einen einzigen Schuss strömen die Menschen nach West-Berlin. Die Mauer ist gefallen – das Ende der DDR ist besiegelt." },
+              { text: "Halte den Übergang geschlossen und warte verzweifelt auf Befehle von oben.",
+                requires_item: null, effects: { influence: 10, suspicion: 40 }, next_location: "end_evaluation",
+                feedback: "Du hältst stur die Stellung – doch der Druck der Zehntausenden wird übermächtig, und Nachbarübergänge öffnen bereits. Deine Verzögerung droht in eine Massenpanik zu kippen, ehe auch dein Schlagbaum fällt. Die Geschichte überrollt dich." }
+            ] }
+        ],
+        exits: ["leipziger_ring"]
       }
     },
     abiEvaluation: {
@@ -868,6 +922,7 @@ ${ev.daltonTask}`;
 
   ov.innerHTML = `
     <div class="fade-in max-w-3xl mx-auto">
+      <pre id="print-cert" class="print-only"></pre>
       <div class="text-center mb-8">
         <div class="text-5xl mb-3">🏆</div>
         <h2 class="text-2xl font-extrabold text-slate-50">Quest abgeschlossen</h2>
@@ -903,13 +958,14 @@ ${ev.daltonTask}`;
         <label class="text-xs text-slate-500 mb-1 block">Kopierbarer Mappen-Eintrag:</label>
         <textarea id="dalton-copy" rows="12" class="w-full font-term text-xs bg-slate-950 border border-slate-700 rounded-lg p-4 text-slate-200 leading-relaxed focus:outline-none focus:ring-2 focus:ring-amber-500">${copyText}</textarea>
 
-        <div class="mt-3 flex flex-wrap gap-2">
+        <div class="mt-3 flex flex-wrap gap-2 no-print">
           <button onclick="copyDalton()" id="copy-btn" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-sm font-medium transition-all">📋 In die Zwischenablage kopieren</button>
-          <button onclick="downloadCertificate()" id="cert-btn" class="px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-slate-950 text-sm font-bold transition-all">📜 Dalton-Mappen-Zertifikat generieren (.txt)</button>
+          <button onclick="downloadCertificate()" id="cert-btn" class="px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-slate-950 text-sm font-bold transition-all">📜 Zertifikat als .txt herunterladen</button>
+          <button onclick="printCertificate()" id="print-btn" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-sm font-medium transition-all">🖨️ Zertifikat drucken</button>
         </div>
       </div>
 
-      <div class="flex flex-col sm:flex-row gap-3 justify-center mt-8">
+      <div class="flex flex-col sm:flex-row gap-3 justify-center mt-8 no-print">
         <button onclick="selectRole(${state.activeModuleIndex}, '${state.currentCharacter.id}')" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 font-medium transition-all">🔁 Erneut spielen</button>
         <button onclick="goHome()" class="px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold transition-all hover:-translate-y-0.5">🏛️ Andere Welt / Hauptmenü</button>
       </div>
@@ -971,7 +1027,7 @@ function copyDalton() {
 /* =========================================================================
    ZERTIFIKAT-DOWNLOAD (.txt via Blob)
    ========================================================================= */
-function downloadCertificate() {
+function buildCertificateText() {
   const m = mod();
   const ev = m.abiEvaluation;
   const nameInput = document.getElementById('player-name');
@@ -987,8 +1043,7 @@ function downloadCertificate() {
     ? state.inventory.map(id => '  • ' + findArtifact(id).name).join('\n')
     : '  (keine)';
 
-  const text =
-`${line}
+  return `${line}
    DALTON-MAPPEN-ZERTIFIKAT  ·  GESCHICHTS-RPG (Chronik-Engine)
 ${line}
 
@@ -1027,7 +1082,11 @@ ${line}
   Erstellt mit der Chronik-Engine · Dalton-Plan · ${dateStr}
 ${line}
 `;
+}
 
+function downloadCertificate() {
+  const m = mod();
+  const text = buildCertificateText();
   const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -1040,6 +1099,12 @@ ${line}
 
   const btn = document.getElementById('cert-btn');
   if (btn) { btn.textContent = '✅ Zertifikat heruntergeladen'; setTimeout(() => btn.textContent = '📜 Dalton-Mappen-Zertifikat generieren (.txt)', 2200); }
+}
+
+function printCertificate() {
+  const pre = document.getElementById('print-cert');
+  if (pre) pre.textContent = buildCertificateText();
+  window.print();
 }
 
 /* =========================================================================

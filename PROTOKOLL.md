@@ -4,7 +4,7 @@ Sauberes Projekt- und Spielprotokoll (Game Design Document + Änderungslog) für
 Serious-RPG zum Geschichts-Abitur.
 
 - **Stand:** 2026-06-17
-- **Status:** ✅ **v2.2.0** — 4 Welten (1789 / 1848-49 / 1933 / 1989), 8 Rollen, `localStorage`-Persistenz & Zertifikat-Download, im Browser verifiziert · auf GitHub: [cmaix/geschichts-rpg](https://github.com/cmaix/geschichts-rpg) · siehe [TODO.md](TODO.md)
+- **Status:** ✅ **v2.3.0** — 4 Welten (1789 / 1848-49 / 1933 / 1989), 8 Rollen, spielbares Game-Over, Bornholmer-Epilog 1989 (Schabowski-Zettel), `localStorage`-Persistenz, Zertifikat als `.txt`-Download **+ Druck** · auf GitHub: [cmaix/geschichts-rpg](https://github.com/cmaix/geschichts-rpg) · siehe [TODO.md](TODO.md)
 - **Verwandte Dokumente:** [ARCHITEKTUR.md](ARCHITEKTUR.md), [TODO.md](TODO.md)
 
 ---
@@ -134,7 +134,7 @@ Beide Werte sind auf `0–100` begrenzt. Kritische Schwellen werden signalrot da
 | Welt 1 | Paris/Versailles 1789 | Sieyès, Ballhausschwur | ✅ implementiert (v1.0) |
 | Welt 2 | Frankfurt 1848/49 (Paulskirche) | Struve-Flugblatt, Kaiserkronen-Brief | ✅ implementiert (v2.0) |
 | Welt 3 | Berlin 1933 (Krolloper) | Otto-Wels-Rede, Ermächtigungsgesetz | ✅ implementiert (v2.0) |
-| Welt 5 | Leipzig 1989 (Nikolaikirche/Ring) | Aufruf zur Gewaltlosigkeit | ✅ implementiert (v2.1) |
+| Welt 5 | Leipzig 1989 (Nikolaikirche/Ring/Bornholmer) | Aufruf zur Gewaltlosigkeit, Schabowski-Zettel | ✅ implementiert (v2.1/2.3) |
 
 ---
 
@@ -156,6 +156,7 @@ Beide Werte sind auf `0–100` begrenzt. Kritische Schwellen werden signalrot da
 | 2026-06-17  | 2.0.0   | Welt-Auswahlmenü; 2 neue Welten (1848/49 mit Eduard & Gustav, 1933 mit Otto); `localStorage`-Autosave + „Fortsetzen"; Zertifikat-Download (.txt/Blob); Entscheidungs-Protokoll; modulneutraler Game-Over-Text. Gustav-Branche ergänzt & austariert. QA bestanden (0 Konsolenfehler). |
 | 2026-06-17  | 2.1.0   | Welt 5 (Leipzig 1989) mit 2 Rollen (Sabine / Oberstleutnant Wagner); Quellen-Artefakt „Aufruf zur Gewaltlosigkeit" schaltet sowohl Sabines gewaltlosen Durchbruch als auch Wagners Schießbefehl-Verweigerung frei. Chronik nun lückenlos (1789–1989). QA bestanden (0 Konsolenfehler). |
 | 2026-06-17  | 2.2.0   | Welt 1933 erweitert: zweite Rolle Heinrich (Zentrumspartei) unter Prälat Kaas. Historisches „Ja" (tragische Illusion → Selbstauflösung) ohne Quelle; kontrafaktisches „Nein" via Wels-Reden-Artefakt freigeschaltet. Repo auf GitHub (cmaix/geschichts-rpg) veröffentlicht. QA bestanden (0 Konsolenfehler). |
+| 2026-06-17  | 2.3.0   | (1) Spielbares Game-Over: Gustav (1849) erhält tödliche Putsch-Option (Verdacht→85). (2) 3. Raum „Bornholmer Straße, 9. Nov." mit Schabowski-Zettel; beide historischen 1989-Pfade enden im Mauerfall. (3) Druck-Stylesheet (`@media print`) + 🖨️-Button fürs Dalton-Zertifikat; Zertifikatstext in `buildCertificateText()` ausgelagert. Vollabnahme: 12 Pfade grün, 0 Konsolenfehler. |
 
 ---
 
@@ -173,26 +174,25 @@ Eine Welt gilt als fertig, wenn:
 
 ---
 
-## 10. QA-Vollabnahme (Stand v2.2.0, 2026-06-17)
+## 10. QA-Vollabnahme (Stand v2.3.0, 2026-06-17)
 
-Automatisierter End-to-End-Durchlauf **aller 8 Rollen** (11 Pfad-Varianten) — jede erreicht
-einen gültigen Endzustand (`evaluation`), Gating und rollenspezifische NPCs greifen, 0 Konsolenfehler.
+Automatisierter End-to-End-Durchlauf **aller 8 Rollen** (12 Pfad-Varianten) — jede erreicht einen
+gültigen Endzustand (`evaluation` bzw. gewollt `gameover`), Gating und rollenspezifische NPCs greifen, 0 Konsolenfehler.
 
-| Pfad | Endwerte (Einfluss/Verdacht) |
-|------|------------------------------|
-| 1789 Jean-Luc | 95 / 75 |
-| 1789 Comte (Sieyès-Pfad) | 85 / 5 |
-| 1789 Comte (Härte) | 55 / 60 |
-| 1849 Eduard | 100 / 50 |
-| 1849 Gustav | 60 / 75 |
-| 1933 Otto | 80 / 75 |
-| 1933 Heinrich (Ja) | 0 / 5 |
-| 1933 Heinrich (Nein) | 80 / 50 |
-| 1989 Sabine | 80 / 25 |
-| 1989 Wagner (Härte) | 75 / 60 |
-| 1989 Wagner (Verweigern) | 50 / 0 |
+| Pfad | Endzustand | Endwerte (Einfluss/Verdacht) |
+|------|-----------|------------------------------|
+| 1789 Jean-Luc | evaluation | 95 / 75 |
+| 1789 Comte (Sieyès) | evaluation | 85 / 5 |
+| 1849 Eduard | evaluation | 100 / 50 |
+| 1849 Gustav (Reichsverfassungskampagne) | evaluation | 60 / 75 |
+| 1849 Gustav (Putsch) | **gameover** | – / 85 |
+| 1933 Otto | evaluation | 80 / 75 |
+| 1933 Heinrich (Ja) | evaluation | 0 / 5 |
+| 1933 Heinrich (Nein) | evaluation | 80 / 50 |
+| 1989 Sabine (→ Bornholmer → Mauerfall) | evaluation | 80 / 15 |
+| 1989 Sabine (ausweichen) | evaluation | 55 / 55 |
+| 1989 Wagner (Härte) | evaluation | 75 / 60 |
+| 1989 Wagner (Verweigern → Bornholmer → öffnen) | evaluation | 50 / 0 |
 
-- **Game-Over-Codepfad** separat zertifiziert: feuert korrekt bei Verdacht ≥ 80 und rendert den Game-Over-Screen.
-- **Balancing-Hinweis:** Kein *regulärer* Entscheidungspfad erreicht aktuell Verdacht ≥ 80; das Game-Over
-  ist damit eine Sicherheits-/Extremfall-Mechanik, im normalen Spielverlauf aber nicht ausgelöst.
-  Offene Designentscheidung (siehe [TODO.md](TODO.md) Phase 9), ob ein Pfad bewusst „tödlich" gemacht wird.
+- **Game-Over jetzt regulär spielbar** (v2.3.0): Gustavs Putsch-Option erreicht Verdacht 85 → Game-Over-Screen.
+- **Druck-Zertifikat** (`@media print`) und `.txt`-Export teilen sich `buildCertificateText()` — Inhalt konsistent.

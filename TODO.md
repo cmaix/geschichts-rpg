@@ -88,12 +88,15 @@ Legende: `[ ]` offen · `[~]` in Arbeit · `[x]` erledigt
 > Punkte sind **echte, noch offene Erweiterungen** — sie brauchen aber entweder fachliche Quellen-Vorgaben
 > von dir oder eine bewusste Designentscheidung, daher bleiben sie bewusst offen.
 
-- [ ] **Balancing Game-Over:** Soll ein regulärer Pfad bewusst Verdacht ≥ 80 erreichen (echtes „tödliches"
-      Risiko), oder bleibt das Game-Over reine Sicherheitsmechanik? (siehe PROTOKOLL §10)
-- [ ] **Mehrräumige Welten** für 1933/1989 (aktuell 1 bzw. 2 Räume) — z. B. Vorraum/Straße als Atmosphäre.
-- [ ] **Zusätzliche Quelle/Variante für Leipzig 1989** (z. B. Schabowski-Zettel, 9. November) — Lehrer-Input.
+- [x] **Balancing Game-Over (v2.3.0):** Gustav (1849) erhält eine bewusst „tödliche" 3. Option
+      (sofortiger Putsch → Verdacht 40→85 → Game-Over/Rastatt-Erschießung). Seine Reichsverfassungs-
+      kampagne-Option erreicht weiterhin die Reflexion. Mechanik damit im regulären Spiel erlebbar.
+- [x] **Zusätzliche Quelle für Leipzig 1989 (v2.3.0):** 3. Raum „Bornholmer Straße, 9. Nov." mit
+      Schabowski-Zettel; beide historischen Leipzig-Pfade münden dort in die Mauerfall-Entscheidung.
+- [x] **Druck-Stylesheet (v2.3.0):** `@media print` + 🖨️-Button drucken das Dalton-Zertifikat
+      sauber direkt aus dem Browser (zusätzlich zum `.txt`-Export).
+- [ ] **Mehrräumige Welten** für 1933 (aktuell 1 Raum) — z. B. Vorraum/Straße als Atmosphäre (1989 jetzt 3 Räume).
 - [ ] **Welt 4: 1870/71 Reichsgründung** oder **Kaiserreich/Imperialismus** als Lückenfüller (optional).
-- [ ] **Druck-Stylesheet** (`@media print`) für das Dalton-Zertifikat direkt aus dem Browser.
 
 ## Offene Entscheidungen — entschieden in v1.0
 - [x] Verdachts-Spielende: **harter Game-Over bei `≥ 80`** (Warnung + Blinken ab `≥ 50`) — wie im Spec
