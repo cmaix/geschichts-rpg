@@ -1,0 +1,10 @@
+# OS / Editor
+.DS_Store
+*.swp
+Thumbs.db
+
+# Vercel
+.vercel
+
+# lokale Preview-Konfiguration (nicht teilen)
+.claude/
