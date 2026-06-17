@@ -95,8 +95,10 @@ Legende: `[ ]` offen · `[~]` in Arbeit · `[x]` erledigt
       Schabowski-Zettel; beide historischen Leipzig-Pfade münden dort in die Mauerfall-Entscheidung.
 - [x] **Druck-Stylesheet (v2.3.0):** `@media print` + 🖨️-Button drucken das Dalton-Zertifikat
       sauber direkt aus dem Browser (zusätzlich zum `.txt`-Export).
-- [ ] **Mehrräumige Welten** für 1933 (aktuell 1 Raum) — z. B. Vorraum/Straße als Atmosphäre (1989 jetzt 3 Räume).
-- [ ] **Welt 4: 1870/71 Reichsgründung** oder **Kaiserreich/Imperialismus** als Lückenfüller (optional).
+- [x] **Kaiserreich & Imperialismus als eigenes Modul (v2.4.0):** Modul 2 mit Bismarck ↔ Tirpitz.
+- [x] **NS-Widerstand als eigenes Modul (v2.4.0):** Modul 4 „Weiße Rose" (Sophie ↔ Mitläufer Werner).
+- [ ] **Mehrräumige Welten** für 1933 (aktuell 1 Raum) — z. B. Vorraum/Straße als Atmosphäre.
+- [ ] **Welt zum 20. Juli 1944** (militärischer Widerstand) als Ergänzung zu Modul 4 (optional).
 
 ## Offene Entscheidungen — entschieden in v1.0
 - [x] Verdachts-Spielende: **harter Game-Over bei `≥ 80`** (Warnung + Blinken ab `≥ 50`) — wie im Spec

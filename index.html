@@ -81,7 +81,7 @@
             <span class="h-2.5 w-2.5 rounded-full bg-rose-500/70"></span>
             <span class="h-2.5 w-2.5 rounded-full bg-amber-500/70"></span>
             <span class="h-2.5 w-2.5 rounded-full bg-emerald-500/70"></span>
-            <span class="ml-2 text-[11px] font-term text-slate-500">chronik://welt_1789</span>
+            <span id="term-path" class="ml-2 text-[11px] font-term text-slate-500">chronik://</span>
           </div>
           <div id="log" class="font-term text-sm leading-relaxed p-4 h-[58vh] md:h-[66vh] overflow-y-auto space-y-3"></div>
         </div>
@@ -268,6 +268,88 @@ const MODULES = [
   },
 
   {
+    module_id: "welt_kaiserreich",
+    epoch: "Modul 2: Kaiserreich & Imperialismus (1887–1911)",
+    icon: "🦅",
+    statLabels: { influence: "🤝 Außenpolitischer Einfluss", suspicion: "🌍 Internationale Eskalation" },
+    startLocation: "wilhelmstrasse",
+    roles: [
+      { id: "bismarck", name: "Otto von Bismarck (Reichskanzler)",
+        desc: "Architekt des Deutschen Reiches. Ziel: das Reich als 'saturiert' bewahren, Frankreich isolieren und das europäische Gleichgewicht durch ein kunstvolles Bündnissystem sichern.",
+        start: { influence: 65, suspicion: 10 } },
+      { id: "tirpitz", name: "Alfred von Tirpitz (Staatssekretär des Reichsmarineamts)",
+        desc: "Verfechter der wilhelminischen Weltpolitik. Ziel: Deutschland durch eine starke Schlachtflotte zur Weltmacht machen – 'ein Platz an der Sonne'.",
+        start: { influence: 45, suspicion: 25 } }
+    ],
+    locations: {
+      wilhelmstrasse: {
+        name: "📍 Die Wilhelmstraße – Auswärtiges Amt (Berlin)",
+        description: "Im Zentrum der deutschen Diplomatie laufen die Drähte der Weltpolitik zusammen. Auf dem Schreibtisch stapeln sich Depeschen aus St. Petersburg, London und Paris. Das europäische Mächtegleichgewicht ist fragil – eine falsche Bewegung kann ganze Bündnisse zerreißen.",
+        artifacts: [
+          { id: "quelle_rueckversicherung", name: "📜 Der Geheime Rückversicherungsvertrag (1887)",
+            text: "»Falls eine der hohen vertragschließenden Parteien sich im Kriege mit einer dritten Großmacht befinden sollte, so wird die andere ihr wohlwollende Neutralität bewahren.« – Bismarcks Versicherung gegen den Albtraum der Koalitionen.",
+            hint: "Das Herzstück von Bismarcks Bündnissystem: Russland einbinden, um Frankreich isoliert zu halten." },
+          { id: "quelle_platz_sonne", name: "📜 Bülows 'Platz an der Sonne'-Rede (1897)",
+            text: "»Wir wollen niemand in den Schatten stellen, aber wir verlangen auch unseren Platz an der Sonne.« – Das Programm der wilhelminischen Weltpolitik.",
+            hint: "Die Abkehr von Bismarcks Zurückhaltung hin zu offensiver Welt- und Kolonialpolitik." }
+        ],
+        npcs: [
+          { name: "Geheimrat Friedrich von Holstein (Auswärtiges Amt)",
+            identity_for_role: "bismarck",
+            dialog_start: "»Durchlaucht, der Vertrag mit Russland läuft aus. Der Generalstab drängt, Österreich-Ungarn auf dem Balkan freie Hand zu lassen. Doch das würde St. Petersburg verprellen. Wie sichern wir das Reich?«",
+            choices: [
+              { text: "Erneuere den Rückversicherungsvertrag und halte an der Defensivpolitik fest: 'Das Reich ist saturiert. Wir binden Russland ein und halten Frankreich isoliert – das ist unsere Lebensversicherung gegen den Zweifrontenkrieg.'",
+                requires_item: "quelle_rueckversicherung", effects: { influence: 25, suspicion: -25 }, next_location: "end_evaluation",
+                feedback: "Das europäische Gleichgewicht bleibt gewahrt, der Albtraum der Koalitionen ('cauchemar des coalitions') gebannt. Solange diese kunstvolle Bündnispolitik hält, ist das Reich gesichert – doch sie hängt allein an deiner Person." },
+              { text: "Gib Österreich freie Hand auf dem Balkan und lass den Vertrag mit Russland fallen.",
+                requires_item: null, effects: { influence: -15, suspicion: 40 }, next_location: "end_evaluation",
+                feedback: "Russland fühlt sich verraten und nähert sich Frankreich an. Der Grundstein für die spätere Einkreisung des Reiches ist gelegt – genau der Zweifrontenkrieg, den du verhindern wolltest, rückt näher." }
+            ] },
+          { name: "Kaiser Wilhelm II.",
+            identity_for_role: "tirpitz",
+            dialog_start: "»Tirpitz! England beherrscht die Meere und damit die Welt. Sollen Wir Uns mit der Rolle einer Kontinentalmacht begnügen – oder verschaffen Wir dem Reich endlich seinen Platz an der Sonne?«",
+            choices: [
+              { text: "Berufe dich auf Bülows Programm und treibe den Flottenbau voran: 'Majestät, Weltmacht braucht eine Flotte. Wir bauen eine Schlachtflotte, die selbst England fürchten muss!'",
+                requires_item: "quelle_platz_sonne", effects: { influence: 25, suspicion: 20 }, next_location: "weltbuehne",
+                feedback: "Der Reichstag verabschiedet die Flottengesetze. Doch Großbritannien begreift den Flottenbau sofort als Bedrohung – das deutsch-britische Wettrüsten beginnt, und London sucht den Schulterschluss mit Frankreich." },
+              { text: "Rate zur Zurückhaltung und bleibe bei der Kontinentalpolitik: 'Majestät, eine Flottenrüstung würde England unweigerlich gegen uns aufbringen. Wir sollten Bismarcks Maß bewahren.'",
+                requires_item: null, effects: { influence: -20, suspicion: -15 }, next_location: "weltbuehne",
+                feedback: "Du dämpfst den Ehrgeiz des Kaisers. Die wilhelminische Rechte verhöhnt dich als mutlos, doch die Beziehungen zu London bleiben vorerst unbelastet." }
+            ] }
+        ],
+        exits: []
+      },
+      weltbuehne: {
+        name: "📍 Die Weltbühne – Marokko, 1911 (Zweite Marokkokrise)",
+        description: "Vor der marokkanischen Küste ankert das deutsche Kanonenboot 'Panther' bei Agadir. Frankreich greift nach Marokko, das Reich pocht auf 'Kompensation'. Ganz Europa blickt gebannt auf die Krise – ein Funke könnte den Kontinent entzünden.",
+        artifacts: [
+          { id: "quelle_panthersprung", name: "📜 Depesche zum 'Panthersprung' nach Agadir (1911)",
+            text: "»Zum Schutze deutscher Interessen ist S.M.S. Panther nach Agadir entsandt worden.« – Demonstration deutscher Weltgeltung mit dem Kanonenboot.",
+            hint: "Imperiale Drohgebärde – kalkulierter Prestigegewinn gegen das Risiko des großen Krieges." }
+        ],
+        npcs: [
+          { name: "Reichskanzler von Bethmann Hollweg",
+            identity_for_role: "tirpitz",
+            dialog_start: "»Tirpitz, der 'Panthersprung' hat ganz Europa aufgeschreckt. England stellt sich offen hinter Frankreich. Pochen wir weiter auf maximale Kompensation – oder lenken wir ein, bevor es Krieg gibt?«",
+            choices: [
+              { text: "Maximaler Druck: 'Jetzt erst recht! Deutschland darf nicht weichen. Fordern wir das gesamte französische Kongo – oder wir riskieren den Krieg.'",
+                requires_item: "quelle_panthersprung", effects: { influence: 15, suspicion: 30 }, next_location: "end_evaluation",
+                feedback: "Großbritannien droht unmissverständlich (Lloyd Georges Mansion-House-Rede). Deutschland muss am Ende klein beigeben und steht als isolierter Aggressor da – die Blockbildung gegen das Reich verhärtet sich, der Weg in die Julikrise 1914 ist geebnet." },
+              { text: "Lenke ein und verhandle einen Ausgleich (Marokko-Kongo-Vertrag).",
+                requires_item: null, effects: { influence: -10, suspicion: -20 }, next_location: "end_evaluation",
+                feedback: "Die Krise wird diplomatisch entschärft, der große Krieg vorerst vermieden. Doch die wilhelminische Öffentlichkeit empört sich über die 'Schmach von Agadir' – der innenpolitische Druck zu nationaler Härte wächst weiter." }
+            ] }
+        ],
+        exits: ["wilhelmstrasse"]
+      }
+    },
+    abiEvaluation: {
+      summary: "Der Übergang von Bismarcks defensiver Bündnispolitik (Reich als 'saturiert', Rückversicherungsvertrag) zur offensiven 'Weltpolitik' Wilhelms II. (Flottenbau, Kolonialstreben, 'Platz an der Sonne') führte zur außenpolitischen Isolation des Reiches. Das Wettrüsten zur See trieb Großbritannien an die Seite Frankreichs und Russlands (Triple Entente). Die imperialistischen Krisen – zuletzt die Zweite Marokkokrise 1911 – verhärteten die Blockbildung, die 1914 in die Julikrise und den Ersten Weltkrieg mündete.",
+      daltonTask: "Vergleiche Bismarcks Bündnissystem mit der wilhelminischen Weltpolitik anhand der Quellen (Rückversicherungsvertrag vs. 'Platz an der Sonne'). Beurteile, inwiefern der deutsche Imperialismus die europäische Friedensordnung unumkehrbar zerstörte."
+    }
+  },
+
+  {
     module_id: "welt_1933",
     epoch: "Modul 3: Das Ende von Weimar (Die Krolloper 1933)",
     icon: "⚖️",
@@ -317,6 +399,81 @@ const MODULES = [
     abiEvaluation: {
       summary: "Die Verabschiedung des Ermächtigungsgesetzes am 23. März 1933 markiert das Ende der legalen Phase der nationalsozialistischen 'Machtergreifung'. Sie zeigt das kolossale Versagen des bürgerlichen Lagers unter dem Druck des permanenten Straßenterrors.",
       daltonTask: "Analysiere den moralischen und politischen Gehalt der Rede von Otto Wels. Diskutiere in deiner Mappe, warum das bürgerliche Lager (Zentrum) fälschlicherweise glaubte, Hitler durch ein parlamentarisches Zugeständnis 'zähmen' zu können."
+    }
+  },
+
+  {
+    module_id: "welt_widerstand",
+    epoch: "Modul 4: Diktatur & Widerstand – Die Weiße Rose (München 1943)",
+    icon: "🌹",
+    statLabels: { influence: "✊ Moralische Integrität & Wirkung", suspicion: "🕵️ Gestapo-Verdacht" },
+    startLocation: "lichthof",
+    roles: [
+      { id: "sophie_scholl", name: "Sophie (Studentin der Weißen Rose)",
+        desc: "Mitglied der studentischen Widerstandsgruppe. Ziel: das Schweigen brechen und mit Flugblättern zum gewaltlosen Widerstand gegen das NS-Regime aufrufen.",
+        start: { influence: 40, suspicion: 45 } },
+      { id: "werner_mitlaeufer", name: "Werner (angepasster Kommilitone)",
+        desc: "Ein vorsichtiger Student, der sich bisher mit dem Regime arrangiert hat. Ziel: unbehelligt durchs Studium kommen – doch heute wird er Zeuge von etwas, das ihn zwingt, Stellung zu beziehen.",
+        start: { influence: 30, suspicion: 20 } }
+    ],
+    locations: {
+      lichthof: {
+        name: "📍 Der Lichthof der Universität München (18. Februar 1943)",
+        description: "Die Vorlesungen laufen, gleich öffnen sich die Hörsäle. Im weiten Lichthof der Ludwig-Maximilians-Universität liegt ein Koffer mit Flugblättern. Die Gestapo ist überall, der Hausmeister beobachtet jeden Schritt. Ein einziger Moment kann über Leben und Tod entscheiden.",
+        artifacts: [
+          { id: "quelle_flugblatt", name: "📜 Das sechste Flugblatt der Weißen Rose",
+            text: "»Der Name Deutschland ist für immer entehrt, wenn nicht die deutsche Jugend endlich aufsteht […]. Studentinnen! Studenten! Uns ekelt die Macht. Im Namen der deutschen Jugend fordern wir vom Staat Adolf Hitlers die persönliche Freiheit zurück!«",
+            hint: "Das Manifest des gewaltlosen, geistigen Widerstands – seine Verbreitung gilt dem Regime als Hochverrat." }
+        ],
+        npcs: [
+          { name: "Hans Scholl (dein Bruder)",
+            identity_for_role: "sophie_scholl",
+            dialog_start: "»Sophie, gleich klingelt es zur Pause. Wir haben noch einen Stapel Flugblätter übrig. Legen wir sie nur leise aus – oder werfen wir sie vom obersten Geländer hinab in den Lichthof, damit alle sie sehen?«",
+            choices: [
+              { text: "Wirf den restlichen Stapel mutig von der Balustrade in den Lichthof, damit die Botschaft alle erreicht.",
+                requires_item: "quelle_flugblatt", effects: { influence: 35, suspicion: 25 }, next_location: "verhoer",
+                feedback: "Die Blätter segeln hinab wie Schnee, hunderte Studenten blicken auf – ein unvergesslicher Moment des Widerstands. Doch der Hausmeister Jakob Schmid hat dich gesehen. Er packt dich am Arm: 'Sie sind verhaftet!' Die Gestapo wird gerufen." },
+              { text: "Verteile die Flugblätter heimlich und unauffällig und verlasse das Gebäude rasch wieder.",
+                requires_item: "quelle_flugblatt", effects: { influence: 10, suspicion: -10 }, next_location: "end_evaluation",
+                feedback: "Die Flugblätter werden gefunden und gelesen, das Netzwerk bleibt vorerst unentdeckt. Die unmittelbare Schockwirkung bleibt geringer – doch ihr könnt weiterarbeiten und überlebt diesen Tag." }
+            ] },
+          { name: "Hausmeister Jakob Schmid",
+            identity_for_role: "werner_mitlaeufer",
+            dialog_start: "»He, Sie da! Haben Sie das auch gesehen? Diese Scholl-Geschwister haben Hetzblätter in den Lichthof geworfen! Als guter Deutscher melden Sie das doch sofort – oder etwa nicht?«",
+            choices: [
+              { text: "Schweige, lies heimlich selbst ein Flugblatt und geh wortlos weiter, ohne jemanden zu verraten.",
+                requires_item: "quelle_flugblatt", effects: { influence: 20, suspicion: 25 }, next_location: "end_evaluation",
+                feedback: "Du steckst ein Flugblatt ein und schweigst. Du hast niemanden verraten – ein kleiner, stiller Akt des Anstands. Doch die Worte lassen dich nicht mehr los: Wie lange kann man im Unrechtsstaat bloß wegsehen?" },
+              { text: "Denunziere die Geschwister sofort beim Rektor und der Gestapo, um über jeden Verdacht erhaben zu sein.",
+                requires_item: null, effects: { influence: -35, suspicion: -20 }, next_location: "end_evaluation",
+                feedback: "Deine Anzeige besiegelt das Schicksal der Scholls. Das Regime belohnt deinen 'Diensteifer', du bist sicher – doch du bist zum Rädchen im Terrorapparat geworden. Genau auf solchem Mitläufertum und solcher Denunziation ruhte die Macht der Diktatur." }
+            ] }
+        ],
+        exits: []
+      },
+      verhoer: {
+        name: "📍 Vor dem Volksgerichtshof (Februar 1943)",
+        description: "Vier Tage nach der Verhaftung. Im Gerichtssaal tobt der berüchtigte Richter Roland Freisler, das Urteil steht längst fest. Doch dir bleibt eine letzte Entscheidung: Wie trittst du deinen Richtern gegenüber?",
+        artifacts: [],
+        npcs: [
+          { name: "Roland Freisler (Präsident des Volksgerichtshofs)",
+            identity_for_role: "sophie_scholl",
+            dialog_start: "»Angeklagte! Bereuen Sie Ihren Verrat am deutschen Volk, und das Gericht zeigt sich vielleicht milde. Widerrufen Sie Ihre hochverräterischen Hetzschriften – oder stehen Sie zu Ihrer Schuld?«",
+            choices: [
+              { text: "Stehe aufrecht zu deiner Überzeugung: 'Was wir sagten und schrieben, denken so viele. Nur wagen sie nicht, es auszusprechen.'",
+                requires_item: null, effects: { influence: 45, suspicion: 0 }, next_location: "end_evaluation",
+                feedback: "Du wirst zum Tode verurteilt und noch am selben Tag hingerichtet. Doch dein Mut bricht das Schweigen: Das sechste Flugblatt wird nach England geschmuggelt und millionenfach über Deutschland abgeworfen – als 'Manifest der Münchner Studenten'. Dein moralisches Zeugnis ist unzerstörbar." },
+              { text: "Widerrufe und beteuere Reue, um dein Leben zu retten.",
+                requires_item: null, effects: { influence: -30, suspicion: -10 }, next_location: "end_evaluation",
+                feedback: "Ein Widerruf hätte dein Leben womöglich verlängert – doch er hätte alles verraten, wofür die Weiße Rose stand. (Historisch blieben die Geschwister Scholl bis zuletzt standhaft.) Das Spiel stellt dich vor die Frage, was ein Mensch der Wahrheit schuldig ist." }
+            ] }
+        ],
+        exits: ["lichthof"]
+      }
+    },
+    abiEvaluation: {
+      summary: "Die 'Weiße Rose' um Hans und Sophie Scholl steht für den gewaltlosen, geistig-moralischen Widerstand gegen die NS-Diktatur. Nach der Verhaftung am 18. Februar 1943 wurden die Geschwister vom Volksgerichtshof unter Roland Freisler zum Tode verurteilt und hingerichtet. Dem aktiven Widerstand einer mutigen Minderheit stand das weitverbreitete Mitläufertum und Wegsehen der Mehrheit gegenüber – die Diktatur stützte sich auf Anpassung, Denunziation und Terror.",
+      daltonTask: "Stelle die Form des aktiven Widerstands (Weiße Rose) dem Mitläufertum der breiten Bevölkerung gegenüber. Beurteile anhand deiner Spielentscheidungen das Spannungsfeld zwischen Mut, Gewissen und Anpassung im totalitären Staat."
     }
   },
 
@@ -452,7 +609,7 @@ const state = {
   pendingModuleIndex: null    // im Menü gewählte Welt (vor Rollenwahl)
 };
 
-const SAVE_KEY = "geschichts_rpg_state";
+const SAVE_KEY = "geschichts_rpg_state_v3"; // v3: Modul-Indizes durch neue Welten (Kaiserreich/Widerstand) verschoben
 const MIN = 0, MAX = 100;
 const clamp = v => Math.max(MIN, Math.min(MAX, v));
 const mod = () => MODULES[state.activeModuleIndex];
@@ -532,6 +689,8 @@ function showGameView() {
   const m = mod();
   document.getElementById('hud-epoch').textContent = m.epoch;
   document.getElementById('hud-role').textContent = "Rolle: " + state.currentCharacter.name;
+  const term = document.getElementById('term-path');
+  if (term) term.textContent = 'chronik://' + m.module_id;
   render();
 }
 
@@ -559,7 +718,7 @@ function renderMenu() {
 
   document.getElementById('menu').innerHTML = `
     <div class="text-center mb-10">
-      <p class="text-xs uppercase tracking-[0.3em] text-amber-500/80 mb-3 font-term">Serious RPG · Dalton-Plan · v2.0</p>
+      <p class="text-xs uppercase tracking-[0.3em] text-amber-500/80 mb-3 font-term">Serious RPG · Dalton-Plan · v2.4</p>
       <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-50">🏛️ Chronik-Engine</h1>
       <p class="mt-4 text-slate-400 max-w-2xl mx-auto leading-relaxed">Übernimm eine historische Rolle, durchschreite die Räume, sammle <span class="text-amber-400 font-medium">Quellen-Artefakte</span> und nutze ihr Wissen, um in Dialogen kluge, abiturrelevante Entscheidungen freizuschalten. Jede Wahl verschiebt deinen <span class="text-emerald-400">Einfluss</span> und den <span class="text-rose-400">Staatsverdacht</span>.</p>
     </div>

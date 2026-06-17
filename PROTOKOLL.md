@@ -4,7 +4,7 @@ Sauberes Projekt- und Spielprotokoll (Game Design Document + Änderungslog) für
 Serious-RPG zum Geschichts-Abitur.
 
 - **Stand:** 2026-06-17
-- **Status:** ✅ **v2.3.0** — 4 Welten (1789 / 1848-49 / 1933 / 1989), 8 Rollen, spielbares Game-Over, Bornholmer-Epilog 1989 (Schabowski-Zettel), `localStorage`-Persistenz, Zertifikat als `.txt`-Download **+ Druck** · auf GitHub: [cmaix/geschichts-rpg](https://github.com/cmaix/geschichts-rpg) · siehe [TODO.md](TODO.md)
+- **Status:** ✅ **v2.4.0** — **6 Welten lückenlos** (1789 / 1848-49 / **Kaiserreich** / 1933 / **Widerstand 1943** / 1989), 12 Rollen, spielbares Game-Over, Bornholmer-Epilog 1989, `localStorage`-Persistenz, Zertifikat als `.txt`-Download **+ Druck** · auf GitHub: [cmaix/geschichts-rpg](https://github.com/cmaix/geschichts-rpg) · siehe [TODO.md](TODO.md)
 - **Verwandte Dokumente:** [ARCHITEKTUR.md](ARCHITEKTUR.md), [TODO.md](TODO.md)
 
 ---
@@ -133,6 +133,8 @@ Beide Werte sind auf `0–100` begrenzt. Kritische Schwellen werden signalrot da
 |------|--------|-----------|--------|
 | Welt 1 | Paris/Versailles 1789 | Sieyès, Ballhausschwur | ✅ implementiert (v1.0) |
 | Welt 2 | Frankfurt 1848/49 (Paulskirche) | Struve-Flugblatt, Kaiserkronen-Brief | ✅ implementiert (v2.0) |
+| Welt 2b | Kaiserreich & Imperialismus (Wilhelmstr./Agadir) | Rückversicherungsvertrag, „Platz an der Sonne", Panthersprung | ✅ implementiert (v2.4) |
+| Welt 4 | Diktatur & Widerstand (Weiße Rose, München 1943) | 6. Flugblatt der Weißen Rose | ✅ implementiert (v2.4) |
 | Welt 3 | Berlin 1933 (Krolloper) | Otto-Wels-Rede, Ermächtigungsgesetz | ✅ implementiert (v2.0) |
 | Welt 5 | Leipzig 1989 (Nikolaikirche/Ring/Bornholmer) | Aufruf zur Gewaltlosigkeit, Schabowski-Zettel | ✅ implementiert (v2.1/2.3) |
 
@@ -157,6 +159,7 @@ Beide Werte sind auf `0–100` begrenzt. Kritische Schwellen werden signalrot da
 | 2026-06-17  | 2.1.0   | Welt 5 (Leipzig 1989) mit 2 Rollen (Sabine / Oberstleutnant Wagner); Quellen-Artefakt „Aufruf zur Gewaltlosigkeit" schaltet sowohl Sabines gewaltlosen Durchbruch als auch Wagners Schießbefehl-Verweigerung frei. Chronik nun lückenlos (1789–1989). QA bestanden (0 Konsolenfehler). |
 | 2026-06-17  | 2.2.0   | Welt 1933 erweitert: zweite Rolle Heinrich (Zentrumspartei) unter Prälat Kaas. Historisches „Ja" (tragische Illusion → Selbstauflösung) ohne Quelle; kontrafaktisches „Nein" via Wels-Reden-Artefakt freigeschaltet. Repo auf GitHub (cmaix/geschichts-rpg) veröffentlicht. QA bestanden (0 Konsolenfehler). |
 | 2026-06-17  | 2.3.0   | (1) Spielbares Game-Over: Gustav (1849) erhält tödliche Putsch-Option (Verdacht→85). (2) 3. Raum „Bornholmer Straße, 9. Nov." mit Schabowski-Zettel; beide historischen 1989-Pfade enden im Mauerfall. (3) Druck-Stylesheet (`@media print`) + 🖨️-Button fürs Dalton-Zertifikat; Zertifikatstext in `buildCertificateText()` ausgelagert. Vollabnahme: 12 Pfade grün, 0 Konsolenfehler. |
+| 2026-06-17  | 2.4.0   | **Zwei neue Welten schließen die Chronik-Lücken (jetzt 6 Module / 12 Rollen):** Modul 2 „Kaiserreich & Imperialismus" (Bismarck ↔ Tirpitz; Rückversicherungsvertrag / Weltpolitik / Marokkokrise) und Modul 4 „Diktatur & Widerstand – Weiße Rose" (Sophie Scholl ↔ Werner/Mitläufer; Lichthof → Volksgerichtshof). Chronologisch einsortiert (Menü 0–5). `SAVE_KEY` auf v3 angehoben (Index-Shift). Terminal-Pfad dynamisch, Header-Label v2.4. Vollabnahme: 11 neue/verschobene Pfade grün, 0 Konsolenfehler. |
 
 ---
 
