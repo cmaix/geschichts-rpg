@@ -63,6 +63,8 @@ Legende: `[ ]` offen · `[~]` in Arbeit · `[x]` erledigt
 - [x] Auswertung erscheint, Kopier-Button funktioniert
 - [x] Keine Konsolenfehler; Layout responsiv (Desktop 1280 + mobil)
 - [x] Abgleich gegen „Definition of Done" in PROTOKOLL §9
+- [x] **Vollabnahme v2.2.0:** alle 8 Rollen (11 Pfad-Varianten) automatisiert bis zur Auswertung durchgespielt — 0 Fehler (Ergebnistabelle in PROTOKOLL §10)
+- [x] Game-Over-Codepfad separat zertifiziert (feuert bei Verdacht ≥ 80)
 
 ## Phase 8 — Inhaltsausbau
 - [x] Comte-de-Vance-Pfad mit eigenen Dialogen (v1.0)
@@ -79,6 +81,19 @@ Legende: `[ ]` offen · `[~]` in Arbeit · `[x]` erledigt
 > statt sofort im Game-Over zu enden. Bei Bedarf kann der Lehrer-Text angepasst werden.
 
 ---
+
+## Phase 9 — Backlog (benötigt Lehrer-Input / Designentscheidung)
+
+> Die Phasen 0–8 sind vollständig abgeschlossen und auf GitHub veröffentlicht (v2.2.0). Die folgenden
+> Punkte sind **echte, noch offene Erweiterungen** — sie brauchen aber entweder fachliche Quellen-Vorgaben
+> von dir oder eine bewusste Designentscheidung, daher bleiben sie bewusst offen.
+
+- [ ] **Balancing Game-Over:** Soll ein regulärer Pfad bewusst Verdacht ≥ 80 erreichen (echtes „tödliches"
+      Risiko), oder bleibt das Game-Over reine Sicherheitsmechanik? (siehe PROTOKOLL §10)
+- [ ] **Mehrräumige Welten** für 1933/1989 (aktuell 1 bzw. 2 Räume) — z. B. Vorraum/Straße als Atmosphäre.
+- [ ] **Zusätzliche Quelle/Variante für Leipzig 1989** (z. B. Schabowski-Zettel, 9. November) — Lehrer-Input.
+- [ ] **Welt 4: 1870/71 Reichsgründung** oder **Kaiserreich/Imperialismus** als Lückenfüller (optional).
+- [ ] **Druck-Stylesheet** (`@media print`) für das Dalton-Zertifikat direkt aus dem Browser.
 
 ## Offene Entscheidungen — entschieden in v1.0
 - [x] Verdachts-Spielende: **harter Game-Over bei `≥ 80`** (Warnung + Blinken ab `≥ 50`) — wie im Spec

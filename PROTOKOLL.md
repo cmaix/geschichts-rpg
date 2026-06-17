@@ -4,7 +4,7 @@ Sauberes Projekt- und Spielprotokoll (Game Design Document + Änderungslog) für
 Serious-RPG zum Geschichts-Abitur.
 
 - **Stand:** 2026-06-17
-- **Status:** ✅ **v2.2.0** — 4 Welten (1789 / 1848-49 / 1933 / 1989), 7 Rollen, `localStorage`-Persistenz & Zertifikat-Download, im Browser verifiziert · auf GitHub: [cmaix/geschichts-rpg](https://github.com/cmaix/geschichts-rpg) · siehe [TODO.md](TODO.md)
+- **Status:** ✅ **v2.2.0** — 4 Welten (1789 / 1848-49 / 1933 / 1989), 8 Rollen, `localStorage`-Persistenz & Zertifikat-Download, im Browser verifiziert · auf GitHub: [cmaix/geschichts-rpg](https://github.com/cmaix/geschichts-rpg) · siehe [TODO.md](TODO.md)
 - **Verwandte Dokumente:** [ARCHITEKTUR.md](ARCHITEKTUR.md), [TODO.md](TODO.md)
 
 ---
@@ -170,3 +170,29 @@ Eine Welt gilt als fertig, wenn:
 5. Krisenschwellen (Einfluss < 20, Verdacht > 70) visuell signalisiert werden.
 6. Die Auswertung mit Abi-Wissen + kopierbarer Dalton-Aufgabe erscheint.
 7. Keine Konsolenfehler; responsives 3-Spalten-Layout (lg) → gestapelt (mobil).
+
+---
+
+## 10. QA-Vollabnahme (Stand v2.2.0, 2026-06-17)
+
+Automatisierter End-to-End-Durchlauf **aller 8 Rollen** (11 Pfad-Varianten) — jede erreicht
+einen gültigen Endzustand (`evaluation`), Gating und rollenspezifische NPCs greifen, 0 Konsolenfehler.
+
+| Pfad | Endwerte (Einfluss/Verdacht) |
+|------|------------------------------|
+| 1789 Jean-Luc | 95 / 75 |
+| 1789 Comte (Sieyès-Pfad) | 85 / 5 |
+| 1789 Comte (Härte) | 55 / 60 |
+| 1849 Eduard | 100 / 50 |
+| 1849 Gustav | 60 / 75 |
+| 1933 Otto | 80 / 75 |
+| 1933 Heinrich (Ja) | 0 / 5 |
+| 1933 Heinrich (Nein) | 80 / 50 |
+| 1989 Sabine | 80 / 25 |
+| 1989 Wagner (Härte) | 75 / 60 |
+| 1989 Wagner (Verweigern) | 50 / 0 |
+
+- **Game-Over-Codepfad** separat zertifiziert: feuert korrekt bei Verdacht ≥ 80 und rendert den Game-Over-Screen.
+- **Balancing-Hinweis:** Kein *regulärer* Entscheidungspfad erreicht aktuell Verdacht ≥ 80; das Game-Over
+  ist damit eine Sicherheits-/Extremfall-Mechanik, im normalen Spielverlauf aber nicht ausgelöst.
+  Offene Designentscheidung (siehe [TODO.md](TODO.md) Phase 9), ob ein Pfad bewusst „tödlich" gemacht wird.
